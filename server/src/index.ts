@@ -3,8 +3,7 @@ import { connect } from "http2";
 import { MongoClient } from "mongodb";
 
 const app = express();
-const url =
-  "mongodb+srv://m001-student:m001-mongodb-basics@sandbox.vh7uk.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
+const url = "db string here :)";
 
 // Create a new MongoClient
 const client = new MongoClient(url);
