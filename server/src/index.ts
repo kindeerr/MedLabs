@@ -1,36 +1,48 @@
 import express from "express";
-import { connect } from "http2";
-import { MongoClient } from "mongodb";
+import dotenv from "dotenv";
+import { Collection, Document, MongoClient } from "mongodb";
 
-const app = express();
-const url = "db string here :)";
+dotenv.config({ path: "./src/config.env" });
 
-// Create a new MongoClient
-const client = new MongoClient(url);
-async function run() {
-  try {
-    // Connect the client to the server
-    await client.connect();
-    // Establish and verify connection
-    await client.db("admin").command({ ping: 1 });
-    console.log("Connected successfully to server");
-    const ceva = client.db("sample_training").collection("trips");
-    //console.log(ceva);
-    const altceva = await ceva.findOne({});
-    console.log(altceva);
-    return client.db("sample_training").collection("trips");
-    //TODO: mutat serverul unde am conexiune la db, investigat daca pica conexiunea la db ce facem
-  } finally {
-    // Ensures that the client will close when you finish/error
-    await client.close();
-  }
-}
-run().catch(console.dir);
+const url = process.env.DBURL ? process.env.DBURL : "";
+const mongoClientObj = new MongoClient(url);
+//console.log(mongoClientObj);
 
-app.get("/", (req, res) => {
-  res.send("Well done!gdbfdbfd");
+mongoClientObj.connect().then((connectedMongoClientObj) => {
+  //console.log(connectedMongoClientObj);
+  const db = connectedMongoClientObj.db("sample_training");
+  console.log(db);
+  //ADD ROUTES HERE. ALWAYS MAKE SURE YOU PASS db FURTHER DOWN
 });
 
-app.listen(3001, () => {
-  console.log("Running on PORT :3001");
-});
+// // Create a new MongoClient
+// const client = new MongoClient(url);
+// let db: Collection<Document>;
+// async function run() {
+//   try {
+//     // Connect the client to the server
+//     await client.connect();
+//     // Establish and verify connection
+//     console.log("Connected successfully to server");
+//     db = client.db("sample_training").collection("trips");
+
+//     app.listen(3001, () => {
+//       console.log("Running on PORT :3001");
+//     });
+//   } finally {
+//     // Ensures that the client will close when you finish/error
+//     await client.close();
+//   }
+// }
+
+// async function run2() {
+//   await run().catch(console.dir);
+
+//   app.get("/", (req, res) => {
+//     console.log("Cristos");
+//     console.log(db.findOne());
+//     res.send("Well done!gdbfdbfd");
+//   });
+// }
+
+// run2();
