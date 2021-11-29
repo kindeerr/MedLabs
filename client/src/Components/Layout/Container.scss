@@ -1,0 +1,53 @@
+.Container {
+    box-sizing: border-box;
+    display: flex;
+    margin: 0 auto;
+    max-width: 80%;
+    padding: $globalSpacing;
+
+    // Type
+
+    &.fluid {
+        max-width: 100%;
+        width: 100%;
+    }
+    &.half {
+        max-width: 50%;
+    }
+    &.third {
+        max-width: 33.33%;
+    }
+
+    // Gutter
+
+    &.large {
+        padding: $globalSpacingLarge;
+    }
+    &.small {
+        padding: $globalSpacingSmall;
+    }
+
+    // Spacing
+
+    &.sm {
+        margin: $globalSpacingSmall auto;
+    }
+    &.lg {
+        margin: $globalSpacingLarge auto;
+    }
+
+    // Variation
+    &.flexrow {
+        flex-direction: row;
+        &.center {
+            align-items: center;
+            justify-content: center;
+        }
+        &.spaced {
+            justify-content: space-between;
+        }
+        &.even {
+            justify-content: space-evenly;
+        }
+    }
+}
